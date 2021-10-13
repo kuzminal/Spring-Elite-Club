@@ -30,9 +30,10 @@ public class EliteClubServiceImpl implements EliteClubService{
                 .collect(Collectors.toList());
     }
 
-    public List<ClubDTO> searchClub(String searchTerm, Pageable pageable) {
+    public List<ClubDTO> searchClub(String searchTerm, short rating, Pageable pageable) {
         LOG.info("Searching term {}", searchTerm);
-        List<ClubDTO> result = eliteClubRepository.findAllByClubNameContainingIgnoreCase(searchTerm, pageable)
+        List<ClubDTO> result =
+                eliteClubRepository.findAllByClubNameContainingIgnoreCaseAndRatingGreaterThanOrderByRatingDesc(searchTerm, rating, pageable)
                 .stream()
                 .map(c -> new ClubDTO(c.getClubName(), c.getRating()))
                 .collect(Collectors.toList());

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class EliteClubController {
@@ -33,8 +34,8 @@ public class EliteClubController {
     }
 
     @GetMapping(path = "/club/search", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<ClubDTO> searchClub(@RequestParam String clubName, Pageable pageable) {
-        return eliteClubService.searchClub(clubName, pageable);
+    public List<ClubDTO> searchClub(@RequestParam Optional<String> clubName, @RequestParam Optional<Short> rating, Pageable pageable) {
+        return eliteClubService.searchClub(clubName.orElse(""), rating.orElse((short) 0), pageable);
     }
 
     @GetMapping(path = "/club/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

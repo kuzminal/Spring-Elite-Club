@@ -8,7 +8,7 @@ import java.util.List;
 public interface EliteClubService {
     List<ClubDTO> getAll(Pageable pageable);
 
-    List<ClubDTO> searchClub(String searchTerm, Pageable pageable);
+    List<ClubDTO> searchClub(String searchTerm, short rating, Pageable pageable);
 
     void addClub(String... clubNames);
 
